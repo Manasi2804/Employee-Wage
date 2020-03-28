@@ -6,6 +6,8 @@ ispresent=1
 isPartTime=1
 isFullTime=2
 empRatePerHr=20
+noWorkingDays=20
+totalSalary=0
 
 randomtemp=$(( RANDOM%3 ))
 
@@ -27,29 +29,22 @@ else
 fi
 
 # To add part time employee
-
-if [[ $isFullTime -eq $randomtemp ]]
-then
-	empHrs=8;
-elif [[ $isPartTime -eq $randomtemp ]]
-then
-	empHrs=4;
-else
-	empHrs=0;
-fi
-salary=$(($empHrs*$empRatePerHr))
-
 #Using case statement
 
-case $randomtemp in
-	$isFullTime)
-		empHrs=8;
-		;;
-	$isPartTime)
-		empHrs=4;
-		;;
-	$*)
-		empHrs=0;
-		;;
-esac
-salary=$(( $empHrs*$empRatePerHr ))
+for((day=1;day<=$noWorkingDays;day++))
+do
+	randomtemp=$(( RANDOM%3 ))
+	case $randomtemp in
+		$isFullTime)
+			empHrs=8;
+			;;
+		$isPartTime)
+			empHrs=4;
+			;;
+		$*)
+			empHrs=0;
+			;;
+	esac
+	salary=$(($empHrs*$empRatePerHr))
+	totalSalary=$(($totalSalary+$salary))
+done
