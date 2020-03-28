@@ -16,15 +16,6 @@ totalWorkingDays=0
 salary=0
 workHrs=0
 
-randomtemp=$(( RANDOM%3 ))
-
-if [[ $IS_PRESENT -eq $randomtemp ]]
-then
-	echo "employee is present"
-else
-	echo "employee is not present"
-fi
-
 # Calculate daily employee wage
 
 function calcDailyWage()
@@ -59,7 +50,7 @@ do
 	empDailyWage[$totalWorkingDays]="$( calcDailyWage $empHrs )"
 done
 
-totalSalary=$(($totalEmpHrs*$EMP_RATE_PER_HR))
+totalSalary=$(($totalWorkHrs*$EMP_RATE_PER_HR))
 echo $totalSalary
-echo "Daily Wage : " ${empDailyWage[@]}
-
+echo "All Wages : " ${empDailyWage[@]}
+echo "All days : " ${!empDailyWage[@]}
