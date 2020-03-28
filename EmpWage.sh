@@ -59,7 +59,7 @@ do
 	empDailyWage[$totalWorkingDays]="$( calcDailyWage $empHrs )"
 done
 
-totalSalary=$(($totalEmpHrs*$EMP_RATE_PER_HR))
+totalSalary=$(($totalWorkHrs*$EMP_RATE_PER_HR))
 echo $totalSalary
 echo "Daily Wage : " ${empDailyWage[@]}
 
