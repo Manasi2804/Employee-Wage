@@ -8,6 +8,7 @@ isFullTime=2
 empRatePerHr=20
 
 randomtemp=$(( RANDOM%3 ))
+
 if [[ $ispresent -eq $randomtemp ]]
 then
 	echo "employee is present"
@@ -37,3 +38,18 @@ else
 	empHrs=0;
 fi
 salary=$(($empHrs*$empRatePerHr))
+
+#Using case statement
+
+case $randomtemp in
+	$isFullTime)
+		empHrs=8;
+		;;
+	$isPartTime)
+		empHrs=4;
+		;;
+	$*)
+		empHrs=0;
+		;;
+esac
+salary=$(( $empHrs*$empRatePerHr ))
