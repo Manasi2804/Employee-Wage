@@ -14,7 +14,7 @@ totalSalary=0
 totalEmpHrs=0
 totalWorkingDays=0
 salary=0
-
+workHrs=0
 
 randomtemp=$(( RANDOM%3 ))
 
@@ -35,44 +35,36 @@ else
 	salary=0;
 fi
 
+function getWorkingHrs()
+{
+	case $1 in
+		$IS_FULL_TIME)
+			workHrs=8
+			;;
+		$IS_PART_TIME)
+			workHrs=4
+			;;
+		*)
+			workHrs=0
+			;;
+	esac
+	echo $workHrs
+}
 # To add part time employee
 #Using case statement
 
 for((day=1;day<=$MAX_WORKING_DAYS;day++))
 do
-	randomtemp=$(( RANDOM%3 ))
-	case $randomtemp in
-		$IS_FULL_TIME)
-			empHrs=8;
-			;;
-		$IS_PART_TIME)
-			empHrs=4;
-			;;
-		$*)
-			empHrs=0;
-			;;
-	esac
+	empHrs="$(getWorkingHrs $((RANDOM%3)))"
 	salary=$(($empHrs*$EMP_RATE_PER_HRS))
 	totalSalary=$(($totalSalary+$salary))
 done
 
 # Calculate wages till a condition of total working hours is reached for a month
-
 while [[ $totalWorkingDays -lt $MAX_WORKING_DAYS && $totalEmpHrs -lt $MAX_WORKING_HRS ]]
 do
 	((totalWorkingDays++))
-	randomtemp=$((RANDOM%3))
-  	case $randomtemp in
-		$IS_FULL_TIME)
-			empHrs=8
-         ;;
-      $IS_PART_TIME)
-         empHrs=4
-         ;;
-      *)
-         empHrs=0
-         ;;
-	esac
+	empHrs="$(getWorkingHrs((RANDOM%3)))"
 	totalEmpHrs=$(($totalEmpHrs+$empHrs))
 done
 
