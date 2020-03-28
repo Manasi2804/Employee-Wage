@@ -9,3 +9,14 @@ then
 else
 	echo "employee is not present"
 fi
+
+# Calculate daily employee wage
+
+if [[ $ispresent -eq $randomtemp ]]
+then
+	empRatePerHr=20;
+	empHrs=8;
+	salary=$(( $empHrs*$empRatePerHr ));
+else
+	salary=0;
+fi
